@@ -5,6 +5,7 @@ import SEO from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 
 export default function IndexPage({ data }) {
+    console.log(data)
     const {
         title,
         description,

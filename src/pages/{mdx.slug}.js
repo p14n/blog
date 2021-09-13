@@ -7,6 +7,7 @@ import { useSiteMetadata } from "../hooks/use-site-metadata";
 
 
 export default function PostPage({ data }) {
+    console.log(data)
   const {
     body,
     slug,
