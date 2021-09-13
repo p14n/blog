@@ -23,6 +23,8 @@ export default function PostPage({ data }) {
     } = useSiteMetadata();  
   return (
     <>
+    <link href="https://github.githubassets.com/assets/gist-embed-b3b573358bfc66d89e1e95dbf8319c09.css" rel="stylesheet" type="text/css" />
+
       <SEO
         title={title}
         titleTemplate={siteTitle}

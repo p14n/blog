@@ -14,7 +14,7 @@ export default function IndexPage({ data }) {
         twitterUsername,
     } = useSiteMetadata();
   return (
-    <>
+    <> 
       <SEO
         title={`Home`}
         titleTemplate={title}

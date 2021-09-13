@@ -1,0 +1,50 @@
+---
+title: Taming the DApp
+date: 2018-05-15
+---
+
+![React](./react.jpeg "React")
+Managing state is tough. Managing UI complexity is tough. Managing state in your app, on the Ethereum blockchain and handing the complexity of your UI is… tougher.
+
+There are a few front-end architectures that have demonstrated the power of a model-view-update architecture in the last few years (Elm and om.next to name two) in keeping this code easy to reason about, and they lend themselves to an event driven model. Luckily, Solidity has [events](http://solidity.readthedocs.io/en/v0.4.21/contracts.html#events) to track the changing state of a contract over time. Can we hook these things together? Let’s find out!
+
+### React/Redux
+
+I’m using React with Redux, a library bringing the Elm architecture to plain javascript.
+
+### Project structure
+
+The flow of the app is split into
+
+-   bootstrapping web3
+-   starting the app (getting the default account, finding the contract)
+-   starting the UI
+
+Once we’re up and running, we will
+
+-   Direct user events to update the contract
+-   Direct contract events to update the UI
+
+I’m just going to show the last two parts in this article; if you want to see all the code, you’ll want to look [here](https://github.com/p14n/eth-remittance).
+
+### User events
+
+`gist:3d64254f05d109c0b9c1fc9fbde12aea#payform.js`
+
+You can see in this form the `onSubmit` calls `dispatch` with an action type of `pay` and the values in our form.
+
+`gist:20f5ec065207e83abd11abb814f4f52b#middleware.js`
+
+The app has some custom middleware to catch this action and direct it to our contract. Unless the transaction fails, this is fire-and-forget; we’ll let the contract tell us when it’s done.
+
+`gist:ed08739cd79a6e771dfa6e323beef722#contractevents.js`
+
+When we started the UI; we watched for the events coming from the contract so we could dispatch them as actions.
+
+`gist:1286b1098cde4e93109976360f5ecb1e#reducer.js`
+
+This shows a snippet of our [reducer](https://redux.js.org/basics/reducers). We are receiving the action from the contract and changing the state of the app to reflect this. The important state change is the `status` . We see how this affects the UI below.
+
+`gist:b54d7ccc1deabe355ab7f04c56d891a8#forms.js`
+
+Finally, which forms are displayed depends on that status; only when the status is `payable` will we display the `PayForm` . Our app is easy to reason about as it gets bigger; and nicely separated so we can write some tests to verify it behaves as it should for each state change.
