@@ -49,14 +49,14 @@ module.exports = {
           },        
         `gatsby-plugin-react-helmet`,
         `gatsby-plugin-theme-ui`,
-           `gatsby-plugin-sharp`,
-            
-            {
-              resolve: `gatsby-source-filesystem`,
-              options: {
-                path: `${__dirname}/content/`,
-              },
+        `gatsby-plugin-sharp`,
+        
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+            path: `${__dirname}/content/`,
             },
+        },
       {
         resolve: `gatsby-source-filesystem`,
         options: {
