@@ -65,6 +65,13 @@ module.exports = {
         },
       },
       {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          path: `${__dirname}/src/images`,
+          name: `images`,          
+        },
+      },      
+      {
         resolve: `gatsby-plugin-clicky`,
         options: {
           siteId: '101333119'
