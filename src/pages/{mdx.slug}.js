@@ -4,7 +4,11 @@ import React from "react";
 import { Box } from "theme-ui";
 import SEO from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
-
+import BackgroundImage from '../images/bg-pattern-1.png';
+import ProfileImage from '../images/profile_cartoon1.jpg';
+import { css, cx } from '@emotion/css';
+import Menu from '../components/menu';
+import { Twitter,Linkedin } from 'react-social-sharing'
 
 export default function PostPage({ data }) {
     console.log(data)
@@ -38,11 +42,38 @@ export default function PostPage({ data }) {
         author={authorName}
         publishedDate={date}
         modifiedDate={new Date(Date.now()).toISOString()}
-      />    
-      <Box as="h1" variant="styles.h1" fontSize="4xl">
-        {title}
-      </Box>
-      <MDXRenderer>{body}</MDXRenderer>
+      />
+      <div className={css`
+          background-image: url(${BackgroundImage});
+          background-repeat: repeat;
+          background-size: cover;
+          margin: 30px;
+          height: 60px;`}>
+					<img src={ProfileImage} alt="avatar" className={css`
+            border: 2px #fff solid;
+            border-radius: 100%;
+            width: 50px;
+            margin: 5px;
+            }`}/>
+          <div className={css`
+              margin-top: -65px;`}>
+
+            <Menu/>
+            </div>
+      </div>    
+      <div className={css`
+          max-width: 80%;
+          margin: auto;
+          padding-top: 30px;          
+          `}>
+        <Box as="h1" variant="styles.h1" fontSize="4xl">
+          {title}
+        </Box>
+        <MDXRenderer>{body}</MDXRenderer>
+        <Twitter link={`${siteUrl}/${slug}`} />
+        <Linkedin link={`${siteUrl}/${slug}`} />
+      </div>    
+
     </>
   );
 }

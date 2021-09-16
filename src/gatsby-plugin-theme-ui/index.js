@@ -17,7 +17,16 @@ const theme = {
     code:{
         ...nightOwl,
     },
+    article: {
+      marginTop: "100px",
+    },
     p: {
+      fontFamily: "body",
+      fontWeight: "body",
+      lineHeight: "body",
+      fontSize: 3,
+    },
+    li: {
       fontFamily: "body",
       fontWeight: "body",
       lineHeight: "body",

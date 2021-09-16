@@ -75,8 +75,8 @@ export const Header = ({ siteTitle, siteDescription }) => {
             margin-bottom: 10px;`}> {siteDescription} <span class="txt-rotate" data-period="2000" data-rotate='[ "devloper.", "designer.", "artist.", "writter." ]'></span> </p>
 					<ul className={css`padding-left: 0;
 list-style: none;`}>
-						<li className={liClass}><a href="#"><i className={css`${socialIconClass}; background-position: -118px 0;`}></i></a></li>
-						<li className={liClass}><a href="#"><i className={css`${socialIconClass}; background-position: -248px 0;`}></i></a></li>
+						<li className={liClass}><a href="https://www.linkedin.com/in/dpchapman/"><i className={css`${socialIconClass}; background-position: -118px 0;`}></i></a></li>
+						<li className={liClass}><a href="https://twitter.com/AnActualDean"><i className={css`${socialIconClass}; background-position: -248px 0;`}></i></a></li>
 					</ul>
 				</div>
 			</div>

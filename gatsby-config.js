@@ -1,6 +1,6 @@
 const siteMetadata = {
-    title: `An Actual Dean`,
-    description: `Dean's software treasures`,
+    title: `Actual Dean`,
+    description: `Thoughts and dicoveries in technology`,
     lastBuildDate: new Date(Date.now()).toISOString(),
     siteUrl: `https://weareactual.com`,
     authorName: `Dean Chapman`,
