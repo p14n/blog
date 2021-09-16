@@ -1,15 +1,10 @@
-import { deep, tailwind } from "@theme-ui/presets";
+import { tailwind } from "@theme-ui/presets";
 import nightOwl from "@theme-ui/prism/presets/night-owl.json";
 
 const theme = {
   ...tailwind,
   colors: {
     ...tailwind.colors,
-    modes: {
-      dark: {
-        ...deep.colors,
-      },
-    },
   },
 
   styles: {
