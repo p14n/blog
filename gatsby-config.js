@@ -72,10 +72,16 @@ module.exports = {
         },
       },      
       {
-        resolve: `gatsby-plugin-clicky`,
+        resolve: `gatsby-plugin-manifest`,
         options: {
-          siteId: '101333119'
-        }
-      }       
+          name: `ActualDean`,
+          short_name: `ActualDean`,
+          start_url: `/`,
+          background_color: `#ffffff`,
+          theme_color: `#ffffff`,
+          display: `standalone`,
+          icon: "src/gatsby-icon.png"
+        },
+      }
     ],
   };
