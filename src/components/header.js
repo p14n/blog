@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Flex, Heading, Link } from "theme-ui";
 import { css, cx } from '@emotion/css'
 import BackgroundImage from '../images/bg-pattern-1.png';
-import ProfileImage from '../images/profile_cartoon1.jpg';
+import ProfileImage from '../images/Profile_cartoon1.jpg';
 import IconImage from '../images/icon-img.png';
 
 const liClass = css`
