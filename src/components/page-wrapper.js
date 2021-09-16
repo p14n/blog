@@ -2,7 +2,7 @@ import React from "react";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 import SEO from "react-seo-component";
 import BackgroundImage from '../images/bg-pattern-1.png';
-import ProfileImage from '../images/profile_cartoon1.jpg';
+import ProfileImage from '../images/Profile_cartoon1.jpg';
 import Menu from '../components/menu';
 import { css } from '@emotion/css';
 
