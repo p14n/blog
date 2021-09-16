@@ -44,7 +44,7 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
   const { siteUrl } = useSiteMetadata();
 
   let [_,mon,day] = frontmatter.date.split(" ");
-  console.log(frontmatter)
+  
   return (<article key={id} className={css`margin-bottom: 110px;`}>
   <div className={css`position: relative;
       padding-left: 230px;
@@ -174,7 +174,7 @@ export default function IndexPage({ data }) {
 				<div className={css`margin-left: 8.3333333333%;flex: 0 0 83.3333333333%;
 max-width: 83.3333333333%;`}>
     
-      {data.allMdx.nodes.map(node => <NewPost {...node}/>)}
+      {data.allMdx.nodes.map(node => node.slug=== 'about' ? <></> : <NewPost {...node}/>)}
 
         </div>
       </div>

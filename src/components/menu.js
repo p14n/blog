@@ -32,7 +32,7 @@ export default () => {
             margin: 0;
             padding: 0;`}>
             <li className={liClass}><Link className={aClass} to="/">Home</Link></li>                 
-            <li className={liClass}><Link className={aClass} to="#">About</Link></li>                 
+            <li className={liClass}><Link className={aClass} to="/about">About</Link></li>                 
         </ul>
     </nav>
     );
