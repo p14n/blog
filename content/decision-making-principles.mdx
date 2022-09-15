@@ -1,0 +1,32 @@
+---
+title: My Decision Principles
+date: 2022-09-15
+image: ./sign-both-ways.jpg
+---
+I recently listened to James Trunk on the Level-up engineering podcast talk about the decision principles he uses at Griffin, and I thought I'd reflect on my own.  For reference, James' are:
+
+* Fast feedback over silent failure
+* Experiment over opinion
+* Focus over context switching
+* Transparency over tribes
+* Innovation over safe bets
+
+The first ones that come to mind:
+
+#### Small steps towards the goal over one big leap
+There are many situations where you can see a golden solution just over the horizon - the perfect fit; the panacea.  SPA's, microservices, serverless, hell EJB's were once a golden ticket.  While they *might* pay off in the long run, its going to be a long time before you see any value.  Do the smallest thing that works (one workflow as an SPA, one set of services peeled off) and informs you about your journey, then the next...
+
+#### Well trodden path over blazing the trail
+This may sound like the opposite of James' ''innovation over safe bets", but there are lots of cases where you don't want to be the first:  
+* the person who went all-in on a betamax video collection
+* the teenager investigating the strange noise by the lake house
+* the first financial institution to discover split brain in an exciting new database
+
+Even if you are still convinced you need to blaze a trail, you should understand the well-trodden paths first; those people went that way for a reason, and it might be the absence of knife-wielding maniacs.
+
+#### Composed over declarative
+This one is a work-in-progress.  There are cases where a new technology asks you to declare the operation of your code, and a framework or platform will interpret and run it for you.  This type of approach, in my experience, can be highly optimised for the simplest problems, making it very fast and easy to get going.  Later, as you find you need to add your own esoteric requirements, you find yourself boxed in.  If you use multiple frameworks, you can find yourself down in the weeds attempting to make two violently conflicting things work together. 
+
+Composing two things that agree (ish) on a common interface (such as an HTTP request) can avoid this trap.  I've found this has become a cultural norm in Clojure - I've had little trouble composing libraries because projects adopt the 'everything is data' principle.  The downside is that starting a web project in Clojure involves making choices you may not care about at that point.  No such problem with Ruby on Rails.
+
+A counterpoint to this is JSX.  When first released, to me it looked like the most awful concern-crossing lock-in.  I think most React developers would see React without JSX as a terrible decision now.
