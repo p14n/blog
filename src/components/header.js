@@ -5,6 +5,7 @@ import { css } from '@emotion/react'
 import BackgroundImage from '../images/bg-pattern-1.png';
 import ProfileImage from '../images/Profile_cartoon1_280.jpg';
 import IconImage from '../images/icon-img.png';
+import mq from '../media-queries'
 
 const liClass = css`
   margin-right: 20px;
@@ -31,8 +32,12 @@ export const Header = ({ siteTitle, siteDescription }) => {
       background-repeat: repeat;
       background-size: cover;
       margin: 30px;
-      margin-bottom: 30px;
-      margin-bottom: 0;`}>
+      ${mq[0]} {
+        padding-bottom: 0;
+      }
+      margin-bottom: 0;
+
+`}>
 		<div css={css`
       max-width: 960px;
       width: 100%;
@@ -52,6 +57,9 @@ export const Header = ({ siteTitle, siteDescription }) => {
             border: 10px #fff solid;
             border-radius: 100%;
             width: 300px;
+            ${mq[0]} {
+              width: 150px;
+            }
             }`}/>
 				</div>
 				<div css={css`text-align: left !important;
@@ -64,6 +72,10 @@ export const Header = ({ siteTitle, siteDescription }) => {
 					<h1 css={css`font-family: "Montserrat", sans-serif;
             margin-top: 20px;
             font-size: 70px;
+            ${mq[0]} {
+              font-size: 50px;
+              line-height: 50px;
+            }
             line-height: 80px;
             color: #000;
             font-weight: bold;
@@ -71,6 +83,10 @@ export const Header = ({ siteTitle, siteDescription }) => {
 					<p css={css`font-size: 32px;
             color: #000;
             font-weight: 300;
+            ${mq[0]} {
+              font-size: 20px;
+              line-height: 20px;
+            }
             line-height: 48px;
             margin-bottom: 10px;`}> {siteDescription} <span class="txt-rotate" data-period="2000" data-rotate='[ "devloper.", "designer.", "artist.", "writter." ]'></span> </p>
 					<ul css={css`padding-left: 0;
