@@ -5,7 +5,7 @@ import SEO from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 import { Header } from "../components/header";
 import Menu from '../components/menu';
-import { css, cx } from '@emotion/css';
+import { css } from '@emotion/react';
 import { Twitter,Linkedin } from 'react-social-sharing';
 /*const Post = ({ id, excerpt, frontmatter, slug }) => {
   console.log(frontmatter)
@@ -46,14 +46,14 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
   let [_,mon,day] = frontmatter.date.split(" ");
   
   return (<article key={id} className={css`margin-bottom: 110px;`}>
-  <div className={css`position: relative;
+  <div css={css`position: relative;
       padding-left: 230px;
       padding-right: 100px;
       margin-bottom: 50px;`}>
-    <div className={css`position: absolute;
+    <div css={css`position: absolute;
       top: 0;
       left: 50px;`}>
-        <b className={css`font-size: 90px;
+        <b css={css`font-size: 90px;
             color: #ccc;
             font-weight: bold;
             line-height: 1;
@@ -62,7 +62,7 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700 !important;`}>{day}</b>
-        <span className={css`font-size: 14px;
+        <span css={css`font-size: 14px;
           text-transform: uppercase;
           font-weight: bold;
           color: #111;
@@ -70,14 +70,14 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
           bottom: 14px;
           right: 0%;`}>{mon}</span>
     </div>
-    <h2 className={css`margin-bottom: 10px;
+    <h2 css={css`margin-bottom: 10px;
         font-weight: 700;
         font-size: 36px;
         line-height: 46px;
         color: #000;
         font-family: "Montserrat", sans-serif;
         margin-top: 0;`}>
-          <Link className={linkClass} to={`/${slug}`}>
+          <Link css={linkClass} to={`/${slug}`}>
               {frontmatter.title}
           {/*<a href="#"></a>*/}
           </Link>
@@ -85,14 +85,14 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
 
   </div>
   { frontmatter.image ? 
-    <div className={css`margin-top: 35px;
+    <div css={css`margin-top: 35px;
         margin-bottom: 35px;
         overflow: hidden;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         border-radius: 0px;
         overflow: hidden;`}>
-          <Link className={linkClass} to={`/${slug}`}>
-      <img className={css`width: 100%;height:200px;
+          <Link css={linkClass} to={`/${slug}`}>
+      <img css={css`width: 100%;height:200px;
           object-fit: cover;
           display: inline-block;
           -webkit-transition: all 0.5s;
@@ -102,9 +102,9 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
           </Link>
     </div>
   : null }
-  <div className={css`padding-left: 230px;
+  <div css={css`padding-left: 230px;
       padding-right: 100px;`}>
-    <p className={css`margin-bottom: 26px;
+    <p css={css`margin-bottom: 26px;
         line-height: 30px;
         font-size: 16px;
         color: #111;
@@ -112,9 +112,9 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
   
     {/*<span class="entry-meta bold float-right">Share</span>*/}
   </div>
-  <ul className={css`float: right;padding-left: 20px; list-style: none;margin: 0;padding: 0;`}>
-      <li className={socialLiClass}><Twitter link={`${siteUrl}/${slug}`} /></li>
-      <li className={socialLiClass}><Linkedin link={`${siteUrl}/${slug}`} /></li>
+  <ul css={css`float: right;padding-left: 20px; list-style: none;margin: 0;padding: 0;`}>
+      <li css={socialLiClass}><Twitter link={`${siteUrl}/${slug}`} /></li>
+      <li css={socialLiClass}><Linkedin link={`${siteUrl}/${slug}`} /></li>
   </ul>
 
 

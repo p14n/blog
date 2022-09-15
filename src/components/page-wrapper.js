@@ -4,7 +4,7 @@ import SEO from "react-seo-component";
 import BackgroundImage from '../images/bg-pattern-1.png';
 import ProfileImage from '../images/Profile_cartoon1.jpg';
 import Menu from '../components/menu';
-import { css } from '@emotion/css';
+import { css } from '@emotion/react';
 
 export default ({ children,slug,description,title,date}) => {
   const {
@@ -32,19 +32,19 @@ export default ({ children,slug,description,title,date}) => {
         publishedDate={date}
         modifiedDate={new Date(Date.now()).toISOString()}
       />
-      <div className={css`
+      <div css={css`
           background-image: url(${BackgroundImage});
           background-repeat: repeat;
           background-size: cover;
           margin: 30px;
           height: 60px;`}>
-					<img src={ProfileImage} alt="avatar" className={css`
+					<img src={ProfileImage} alt="avatar" css={css`
             border: 2px #fff solid;
             border-radius: 100%;
             width: 50px;
             margin: 5px;
             }`}/>
-          <div className={css`
+          <div css={css`
               margin-top: -65px;`}>
 
             <Menu/>

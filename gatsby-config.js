@@ -1,6 +1,6 @@
 const siteMetadata = {
     title: `Actual Dean`,
-    description: `Thoughts and dicoveries in technology`,
+    description: `Thoughts and discoveries in technology`,
     lastBuildDate: new Date(Date.now()).toISOString(),
     siteUrl: `https://weareactual.com`,
     authorName: `Dean Chapman`,
@@ -50,7 +50,7 @@ module.exports = {
         `gatsby-plugin-react-helmet`,
         `gatsby-plugin-theme-ui`,
         `gatsby-plugin-sharp`,
-        
+        `gatsby-plugin-emotion`,
         {
             resolve: `gatsby-source-filesystem`,
             options: {
