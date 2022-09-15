@@ -1,4 +1,4 @@
-import { css, cx } from '@emotion/css';
+import { css } from '@emotion/react';
 import React from "react";
 import { graphql, Link } from "gatsby";
 
@@ -25,14 +25,14 @@ outline: none;`;
 
 export default () => {
     return (
-    <nav className={css`
+    <nav css={css`
         padding-top: 7px;
         text-align: center !important;`}>
-        <ul className={css`
+        <ul css={css`
             margin: 0;
             padding: 0;`}>
-            <li className={liClass}><Link className={aClass} to="/">Home</Link></li>                 
-            <li className={liClass}><Link className={aClass} to="/about">About</Link></li>                 
+            <li css={liClass}><Link css={aClass} to="/">Home</Link></li>                 
+            <li css={liClass}><Link css={aClass} to="/about">About</Link></li>                 
         </ul>
     </nav>
     );
