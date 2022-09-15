@@ -5,7 +5,7 @@ import { css } from '@emotion/react'
 import BackgroundImage from '../images/bg-pattern-1.png';
 import ProfileImage from '../images/Profile_cartoon1_280.jpg';
 import IconImage from '../images/icon-img.png';
-import mq from '../media-queries'
+import mq from '../media-queries';
 
 const liClass = css`
   margin-right: 20px;

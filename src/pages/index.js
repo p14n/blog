@@ -7,6 +7,8 @@ import { Header } from "../components/header";
 import Menu from '../components/menu';
 import { css } from '@emotion/react';
 import { Twitter,Linkedin } from 'react-social-sharing';
+import mq from '../media-queries';
+
 /*const Post = ({ id, excerpt, frontmatter, slug }) => {
   console.log(frontmatter)
   return (<Box
@@ -45,7 +47,10 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
 
   let [_,mon,day] = frontmatter.date.split(" ");
   
-  return (<article key={id} className={css`margin-bottom: 110px;`}>
+  return (<article key={id} css={css`margin-bottom: 110px;
+  ${mq[0]} {
+    margin-bottom: 60px;
+  }`}>
   <div css={css`position: relative;
       padding-left: 230px;
       padding-right: 100px;
@@ -72,6 +77,12 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
     </div>
     <h2 css={css`margin-bottom: 10px;
         font-weight: 700;
+        ${mq[0]} {
+          font-size: 18px;
+          line-height: 30px;
+          margin-top: 10px;
+        }
+  
         font-size: 36px;
         line-height: 46px;
         color: #000;
@@ -103,7 +114,11 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
     </div>
   : null }
   <div css={css`padding-left: 230px;
-      padding-right: 100px;`}>
+      padding-right: 100px;
+      ${mq[0]} {
+        padding-left: 30px;
+        padding-right: 10px;
+      }`}>
     <p css={css`margin-bottom: 26px;
         line-height: 30px;
         font-size: 16px;
@@ -112,10 +127,10 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
   
     {/*<span class="entry-meta bold float-right">Share</span>*/}
   </div>
-  <ul css={css`float: right;padding-left: 20px; list-style: none;margin: 0;padding: 0;`}>
+  {/*<ul css={css`float: right;padding-left: 20px; list-style: none;margin: 0;padding: 0;`}>
       <li css={socialLiClass}><Twitter link={`${siteUrl}/${slug}`} /></li>
       <li css={socialLiClass}><Linkedin link={`${siteUrl}/${slug}`} /></li>
-  </ul>
+  </ul>*/}
 
 
 </article>);
