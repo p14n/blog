@@ -1,0 +1,36 @@
+---
+title: Why my docs live in git
+date: 2022-09-01
+image: ./git-docs.png
+---
+I'm increasingly convinced that the ideal tool for developers and architects to use for written documentation, and even communication, is markdown, stored in git.
+
+#### What's wrong with sharepoint/confluence...?
+Every documentation repository I've worked with has had the same problems:
+* docs are scattered
+* docs are outdated
+* search is unreliable or returns many inauthorative results
+* the history and context of the document is missing
+&nbsp;  
+
+#### Why?
+* If our docs are not tied to the thing they are describing, they become outdated 
+* Our code is reusable, our docs are not (reorganising is a big job, and from the moment it's done, entropy sets in again)
+* We're using publishing tools as a single source of truth for our information, but it's then locked in that platform, and difficult to move elsewhere
+
+#### What should we be doing?
+* Writing docs in a simple format that's easy to edit, and easy to parse (by humans and machines) - markdown
+* Storing docs in a git repo, which has great support for multi-user editing
+* Publishing this information where it's needed, using our existing CI tools
+
+#### Examples
+* Architectural decision [records](https://adr.github.io/)
+* Guides with [Docausauras](https://docusaurus.io/)
+* Presentations with [Reveal-md](https://github.com/webpro/reveal-md)
+* Markdown with components using [MDX](https://github.com/mdx-js/mdx)
+* Diagrams with [Mermaid](https://mermaid-js.github.io/mermaid/#/)
+* Collaborative, embeddable diagrams with [Excalidraw](https://excalidraw.com/)
+* Document metadata (think tags, authors, progress indicators) with [Frontmatter](https://jekyllrb.com/docs/front-matter/)
+* This blog - written in [Obsidian](https://obsidian.md/), stored in [Github](https://github.com/), published to [Netlify](https://www.netlify.com/) with [Gatsby](https://www.gatsbyjs.com/)
+
+
