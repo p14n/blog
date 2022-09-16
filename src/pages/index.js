@@ -53,11 +53,17 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
   }`}>
   <div css={css`position: relative;
       padding-left: 230px;
+      ${mq[0]} {
+        padding-left: 150px;
+      }
       padding-right: 100px;
       margin-bottom: 50px;`}>
     <div css={css`position: absolute;
       top: 0;
-      left: 50px;`}>
+      left: 50px;
+      ${mq[0]} {
+        left: 10px;
+      }`}>
         <b css={css`font-size: 90px;
             color: #ccc;
             font-weight: bold;
@@ -79,10 +85,10 @@ const NewPost = ({ id, excerpt, frontmatter, slug}) => {
         font-weight: 700;
         ${mq[0]} {
           font-size: 18px;
-          line-height: 30px;
-          margin-top: 10px;
-        }
-  
+          line-height: 20px;
+          padding-top: 20px;
+          width: 120px;
+        }  
         font-size: 36px;
         line-height: 46px;
         color: #000;

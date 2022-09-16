@@ -1,6 +1,4 @@
-import { Link as GatsbyLink } from "gatsby";
 import React from "react";
-import { Box, Flex, Heading, Link } from "theme-ui";
 import { css } from '@emotion/react'
 import BackgroundImage from '../images/bg-pattern-1.png';
 import ProfileImage from '../images/Profile_cartoon1_280.jpg';
@@ -52,6 +50,9 @@ export const Header = ({ siteTitle, siteDescription }) => {
         margin-left: -15px;`}>
 				<div css={css`position: relative;
             padding-right: 15px;
+            ${mq[1]} {
+              padding-right: 0px;
+            }
             padding-left: 15px;`}>
 					<img src={ProfileImage} alt="avatar" css={css`
             border: 10px #fff solid;
@@ -73,8 +74,8 @@ export const Header = ({ siteTitle, siteDescription }) => {
             margin-top: 20px;
             font-size: 70px;
             ${mq[0]} {
-              font-size: 50px;
-              line-height: 50px;
+              font-size: 20px;
+              line-height: 20px;
             }
             line-height: 80px;
             color: #000;
@@ -91,8 +92,8 @@ export const Header = ({ siteTitle, siteDescription }) => {
             margin-bottom: 10px;`}> {siteDescription} <span class="txt-rotate" data-period="2000" data-rotate='[ "devloper.", "designer.", "artist.", "writter." ]'></span> </p>
 					<ul css={css`padding-left: 0;
 list-style: none;`}>
-						<li css={liClass}><a href="https://www.linkedin.com/in/dpchapman/"><i className={css`${socialIconClass}; background-position: -118px 0;`}></i></a></li>
-						<li css={liClass}><a href="https://twitter.com/AnActualDean"><i className={css`${socialIconClass}; background-position: -248px 0;`}></i></a></li>
+						<li css={liClass}><a aria-label="Linked In" href="https://www.linkedin.com/in/dpchapman/"><i className={css`${socialIconClass}; background-position: -118px 0;`}></i></a></li>
+						<li css={liClass}><a aria-label="Twitter" href="https://twitter.com/AnActualDean"><i className={css`${socialIconClass}; background-position: -248px 0;`}></i></a></li>
 					</ul>
 				</div>
 			</div>
@@ -101,28 +102,3 @@ list-style: none;`}>
 
   );
 };
-
-{/* <Box as="header" sx={{ 
-      bg: "highlight", 
-      mb: "1.45rem"
-      }}>
-      <Box
-        as="div"
-        sx={{
-          m: "0 auto",
-          maxWidth: "90%",
-          p: "1.45rem 1.0875rem",
-        }}
-      >
-        <Flex>
-          <Box sx={{ flex: "1 1 auto", flexDirection: "column" }}>
-            <Link as={GatsbyLink} to="/">
-              <Heading>{siteTitle}</Heading>
-            </Link>
-            <Box as="p" variant="styles.p">
-            {siteDescription}
-            </Box>
-          </Box>
-        </Flex>
-      </Box>
-    </Box> */}
