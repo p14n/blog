@@ -1,0 +1,63 @@
+---
+title: Serverless ES/CQRS with clojure
+date: 2024-05-05
+image: ./production-line.jpg
+---
+
+![Serverless hero](./serverless-hero.png "")
+
+A few months ago I started on a project I called [events unbundled](https://github.com/p14n/events-unbundled).  It's an experiment into how far we can really separate the core logic of a system from the infrastructure it lives in (its also a hat-tip to [unbundling the database](https://martin.kleppmann.com/2015/03/04/turning-the-database-inside-out.html) ).  
+I take the core code (a simple customer signup) and try and deploy it in multiple architectures, *without* changing the original code, just the shell around it.
+A recent iteration tested deploying this event-sourced, command/query separated app into a serverless architecture on AWS.  I thought this was interesting enough for me to share in its own post.
+
+### The code
+
+The work in `events-unbundled` is in clojure.  So far it's all been done on the JVM.  For this serverless architecture, I wanted to avoid the JVMs cold startup time, so I used [nbb](https://github.com/babashka/nbb), a clojure interpreter for nodejs, which was an absolute joy.  The original clojure code was used to provide the core functionality, with supporting infrastructure in clojurescript.  The topology comes from the metadata in the original code:
+
+```clojure
+(def invite-customer
+  ^{:in [:commands] :out :customer :name :invite-customer-event-handler}
+```
+
+### The design
+
+The main reason for using this implementation was cost - I wanted to see if it was possible to have a system that, when not used, cost $0.  
+This means restricting my choices to the list of [AWS serverless products](https://aws.amazon.com/serverless/) (Aurora is actually also excluded because running costs are incurred).  
+Dynamodb streams always seemed like a good fit, but the response correlation aspect stumped me for a while - I was trying to use req/res with SQS; a job it's entirely unsuitable for.
+
+The final design can be seen here
+![Serverless diagram](./Serverless.png "Serverless diagram")
+
+* Query/mutation - API gateway provides the public http interface to the graphql lambda
+* Command - The [Apollo Server](https://www.apollographql.com/docs/apollo-server/) runs as a lambda and turns mutations into commands (mutation name becomes command type, input payload becomes the command body), which it then writes to dynamodb.  All events are written to the same table; with a specific topic (ie `commands` or `customer`) and a type of event (ie "InviteCustomer")
+* Command/event stream - DynamodDB streams take the newly inserted commands/events and forward them to Event Bridge
+* Listeners - The connection between the stream and the lambdas is implemented using Event Bridge listener rules - there is a rule for each topic, and a rule target for each lambda listening to that topic, so we get the fan-out behaviour we need
+* Event/update - some lambdas will take an event and create a new event, some (maybe the same) will write their own data, either for a domain-local record or to provide a projection/view for queries
+* Notification - Each lambda sends a notification on Elasticache redis to indicate its work is complete.  
+* Correlate responses - This notification is picked up by the apollo lambda invocation, which uses some core code to wait for the right set of circumstances to indicate the original request has been completed.
+* Query - When a query (as opposed to a mutation) is sent, or when a mutation has completed, the apollo server performs the query using the supplied resolver to fulfil the request.
+
+### Challenges
+* I spent a lot of time (mainly hammock time) ruling out SQS:
+  * There is no way to create temporary queues to implement a req/res pattern
+  * Without a dedicated queue any listener will steal all messages (it can return them but after a delay)
+* The use of Elasticache (VPC) with Lambda and DynamoDB (public network) mandated moving the Lambda's into a VPC and using a VPC endpoint for DynamoDB. This works fine, but was fiddly to get right.
+* Lambdas relying on async actions are very difficult to debug when they go wrong
+
+### Performance
+The graphql query response is okay - roughly 100ms to start, read a value from DynamoDB and return the request. Mutation response takes seconds due to the multiple messages via DynamoDB/Event Bridge. The timings from a typical (not cold) start look like this:
+
+```
+Start request
+Lambda started and command sent (217ms)
+Handler fires (517ms)
+Projector fires (905ms)
+Waiting for all downstream results (2.413s)
+Load and return result (28ms)
+```
+The entire request took 2712ms, but only 1667ms was spent in the lambdas, so ~1 seconds has gone to message passing in DynamoDB/EventBridge/Elasticache. I spent no time improving or analysing this performance; tracing would be needed to really understand where to make improvements.
+
+### Conclusion
+From a developer experience point of view, this is a win.  Adding new clojure functions to handle different events is fairly trivial now the shell has been written.  It also fulfilled the main objective of not changing the original clojure code.  From a functional point of view, however, I'd say this zero-cost design has limited use cases - the tradeoff in performance and complexity doesn't seem worth it when compared to the previous implementations.  The project can be found [here](https://github.com/p14n/events-unbundled/tree/main/projects/aws-serverless) and the infrastructure in this [tf.json](./serverless.tf.json) (Clojure code generates this, not HCL)
+
+  
