@@ -4,11 +4,9 @@ date: 2024-05-05
 image: ./production-line.jpg
 ---
 
-![Serverless hero](./serverless-hero.png "")
+![Production line](./production-line.jpg "Production line")
 
-A few months ago I started on a project I called [events unbundled](https://github.com/p14n/events-unbundled).  It's an experiment into how far we can really separate the core logic of a system from the infrastructure it lives in (its also a hat-tip to [unbundling the database](https://martin.kleppmann.com/2015/03/04/turning-the-database-inside-out.html) ).  
-I take the core code (a simple customer signup) and try and deploy it in multiple architectures, *without* changing the original code, just the shell around it.
-A recent iteration tested deploying this event-sourced, command/query separated app into a serverless architecture on AWS.  I thought this was interesting enough for me to share in its own post.
+A few months ago I started on a project I called [events unbundled](https://github.com/p14n/events-unbundled).  It's an experiment into how far we can really separate the core logic of a system from the infrastructure it lives in (its also a hat-tip to [unbundling the database](https://martin.kleppmann.com/2015/03/04/turning-the-database-inside-out.html) ).  I take the core code (a simple customer signup) and try and deploy it in multiple architectures, *without* changing the original code, just the shell around it.  A recent iteration tested deploying this event-sourced, command/query separated app into a serverless architecture on AWS.  I thought this was interesting enough for me to share in its own post.
 
 ### The code
 
@@ -21,9 +19,7 @@ The work in `events-unbundled` is in clojure.  So far it's all been done on the 
 
 ### The design
 
-The main reason for using this implementation was cost - I wanted to see if it was possible to have a system that, when not used, cost $0.  
-This means restricting my choices to the list of [AWS serverless products](https://aws.amazon.com/serverless/) (Aurora is actually also excluded because running costs are incurred).  
-Dynamodb streams always seemed like a good fit, but the response correlation aspect stumped me for a while - I was trying to use req/res with SQS; a job it's entirely unsuitable for.
+The main reason for using this implementation was cost - I wanted to see if it was possible to have a system that, when not used, cost $0.  This means restricting my choices to the list of [AWS serverless products](https://aws.amazon.com/serverless/) (Aurora is actually also excluded because running costs are incurred).  Dynamodb streams always seemed like a good fit, but the response correlation aspect stumped me for a while - I was trying to use req/res with SQS; a job it's entirely unsuitable for.
 
 The final design can be seen here
 ![Serverless diagram](./Serverless.png "Serverless diagram")
@@ -58,6 +54,6 @@ Load and return result (28ms)
 The entire request took 2712ms, but only 1667ms was spent in the lambdas, so ~1 seconds has gone to message passing in DynamoDB/EventBridge/Elasticache. I spent no time improving or analysing this performance; tracing would be needed to really understand where to make improvements.
 
 ### Conclusion
-From a developer experience point of view, this is a win.  Adding new clojure functions to handle different events is fairly trivial now the shell has been written.  It also fulfilled the main objective of not changing the original clojure code.  From a functional point of view, however, I'd say this zero-cost design has limited use cases - the tradeoff in performance and complexity doesn't seem worth it when compared to the previous implementations.  The project can be found [here](https://github.com/p14n/events-unbundled/tree/main/projects/aws-serverless) and the infrastructure in this [tf.json](./serverless.tf.json) (Clojure code generates this, not HCL)
+From a developer experience point of view, this is a win.  Adding new clojure functions to handle different events is fairly trivial now the shell has been written.  It also fulfilled the main objective of not changing the original clojure code.  From a functional point of view, however, I'd say this zero-cost design has limited use cases - the tradeoff in performance and complexity doesn't seem worth it when compared to the previous implementations.  The project can be found [here](https://github.com/p14n/events-unbundled/tree/main/projects/aws-serverless) and the infrastructure in this [tf.json](https://raw.githubusercontent.com/p14n/events-unbundled/main/projects/aws-serverless/infra/serverless.tf.json) (Clojure code generates this, not HCL)
 
   
