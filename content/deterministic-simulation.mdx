@@ -1,8 +1,10 @@
 ---
-title: Deterministic simulation testing of events (in Clojure)
+title: Deterministic simulation testing of event handlers (in Clojure)
 date: 2024-05-15
 image: ./deterministic.jpg
 ---
+
+There have been a few times recently where I've been reminded about the work foundationdb did on [deterministic simulation testing](https://www.youtube.com/watch?v=4fFDFbi3toc).  Honestly I was late to the party - I only watched this 2014 video last year when I started looking at foundationdb.  At the time it seemed like a daunting task to implement (the team took a couple of years to write their own framework, and [a new language that implemented actors for c++](https://apple.github.io/foundationdb/flow.html)), so I shelved it on "great ideas I probably won't use".  But when considering how I write my event handlers, I realised that I could implement a simple version of this in Clojure that maintains a useful subset of the benefits the foundationdb team discovered.    This post explores the implementation and benefits.  
 
 ### A simple case
 
@@ -252,7 +254,8 @@ We expected the email to be blocked, but it was active.  Why?  Let's look at the
 * We then sent the email for verification.  The email status is set to pending.
 * We receive email verification.  The email status is set to active.
 
-So, because we assumed the sending of the email verification would be seen *before* the blacklist check returned, we didn't bother checking the status.  That's our bug.
+So, because we assumed the sending of the email verification would be seen *before* the blacklist check returned, we didn't bother checking the status.  That's our bug.  The test has shown us that our event handlers are not robust to random execution.  We can now fix the bug and re-run the test.
 
+We could go further by missing out events completely; this might be useful to test data loss scenarios, or how the wider organisation can react to serious delays.  Perhaps a later post...
 
- 
+The full code can be found [here](https://github.com/p14n/deterministic-test).
