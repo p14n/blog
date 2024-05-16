@@ -4,7 +4,7 @@ date: 2024-05-15
 image: ./deterministic.jpg
 ---
 
-There have been a few times recently where I've been reminded about the work foundationdb did on [deterministic simulation testing](https://www.youtube.com/watch?v=4fFDFbi3toc).  Honestly I was late to the party - I only watched this 2014 video last year when I started looking at foundationdb.  At the time it seemed like a daunting task to implement (the team took a couple of years to write their own framework, and [a new language that implemented actors for c++](https://apple.github.io/foundationdb/flow.html)), so I shelved it on "great ideas I probably won't use".  But when considering how I write my event handlers, I realised that I could implement a simple version of this in Clojure that maintains a useful subset of the benefits the foundationdb team discovered.    This post explores the implementation and benefits.  
+There have been a few times recently where I've been reminded about the work foundationdb did on [deterministic simulation testing](https://www.youtube.com/watch?v=4fFDFbi3toc).  Honestly I was late to the party - I only watched this 2014 video last year when I started looking at foundationdb.  At the time it seemed like a daunting task to implement (the team took a couple of years to write their own framework, and [a new language that implemented actors for c++](https://apple.github.io/foundationdb/flow.html)), so I shelved it with "great ideas I probably won't use".  But when considering how I write my event handlers last week, I realised that I could implement a simple version of this in Clojure that maintains a useful subset of the benefits the foundationdb team discovered.    This post explores the implementation and benefits.  
 
 ### A simple case
 
@@ -77,7 +77,7 @@ Here's the event handler that updates the customer record:
   nil)
 ```
 
-For each event type, it updates the customer record.  If the email is verified and the email status is not blocked, it sets the email status to active.  If the email is blacklisted, it sets the email status to blocked.  We even have a check to ensure that the email status is not set to active if it is already blocked.
+For each event type, it updates the customer record.  If the email is verified and the email status is not already blocked, it sets the email status to active.  If the email is blacklisted, it sets the email status to blocked.
 
 So now let's write a test.
 
@@ -135,7 +135,7 @@ You can see the test has passed, after running 20 times (`:num-tests 20`).  So w
 
 ### Testing for random execution
 
-Here's our updated test.  It's split into two parts, the spec, and a function that will be run by the spec (you'll see later why).
+Here's our updated test.  It's split into two parts, the spec, and a function that will be run by the spec (you'll see why later).
 
 ```clojure
 (defn run-handlers-in-random-order
