@@ -1,5 +1,5 @@
 ---
-title: Vibe-coding the library I wanted to see (in Java)
+title: Vibe-coding the library I wanted to see
 date: 2025-05-08
 image: ./vibe.gif
 ---
@@ -40,9 +40,9 @@ Cursor had done a great job, but I wanted to try a new tool.  I'd heard [augment
 
 ### Chapter 6: Polish
 The last part of the journey was to get the library ready for release.  This involved load testing in AWS to find issues in deployment. I didn't use any AI tools for this process; it was mainly about deploying and debugging using terraform and the AWS console.  I did, however, find a bug, and asked Augment to fix it.  This was probably the occasion I was most impressed with Augment.  The prompt I gave was 
-```
-The catchupservice works well when messages have been missed and fills in the gaps. However, the server has more messages that haven't been received by the client. When the next message arrives, the catchup service will know to fill in the gap, but at the moment it doesn't know they exist. I want a new system event type (FetchLatest) which will get the latest message if it is greater than the current hwm and inserts it in the messages table
-```
+
+"The catchupservice works well when messages have been missed and fills in the gaps. However, the server has more messages that haven't been received by the client. When the next message arrives, the catchup service will know to fill in the gap, but at the moment it doesn't know they exist. I want a new system event type (FetchLatest) which will get the latest message if it is greater than the current hwm and inserts it in the messages table"
+
 Augment forgot one part of the implementation and I had to prompt again, then fix an off-by-one error and I was [done](https://github.com/p14n/postevent/commit/6231ccc125e069e0a411d4946986fae1794c1f9b).  Really something.
 
 
